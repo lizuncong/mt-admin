@@ -1,8 +1,15 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+
 const router = require('./router')
+
 
 const app = express()
 
+app.use(cors()) // 解决跨域的问题
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 app.use('/', router)
 // app.get('/', function(req, res){
