@@ -12,7 +12,11 @@ function md5(pwd){
 function decoded(req){
   let token = req.get('Authorization') || ''
   token = token.replace('Bearer', '').trim()
-  return jwt.verify(token, JWT_PRIVATE_KEY)
+  if(token){
+    return jwt.verify(token, JWT_PRIVATE_KEY)
+  } else {
+    return {}
+  }
 }
 
 module.exports = {

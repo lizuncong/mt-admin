@@ -7,7 +7,6 @@ const { JWT_PRIVATE_KEY, JWT_EXPIRES_IN } = require('../utils/constant')
 
 
 const login = async (req, res, next) => {
-  // console.log(req.body)
   const { email, password } = req.body;
   await Promise.all([
     check('email').isEmail().withMessage('邮箱格式不正确').run(req),
@@ -25,9 +24,7 @@ const login = async (req, res, next) => {
     JWT_PRIVATE_KEY,
     { expiresIn: JWT_EXPIRES_IN }
   )
-
   const userList = await getAdminUserList();
-  // console.log('userList...', userList)
   const data = resultVoUtil.success({ token }, '登录成功')
   res.json(data)
 }
