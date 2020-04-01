@@ -31,3 +31,19 @@ Nginx服务器搭建
   启动MySQL，进入mysql目录：
   cd /usr/local/mysql-xxxx/bin
   ./mysqld
+
+
+4.Token简析
+  4.1 Token是什么
+      Token本质是字符串，用于请求时附带在请求头中，校验请求是否合法及判断用户身份
+      
+  4.2 Token与Session、Cookie的区别
+      Session保存在服务端，用于客户端与服务端连接时，临时保存用户信息，当用户释放连接后，Session将被释放。
+      Cookie保存在客户端，当客户端发起请求时，Cookie会附带在http header中，提供给服务端辨识用户身份。
+      Token请求时提供，用于校验用户是否具备访问接口的权限。
+  4.3 Token的用途主要有三点：
+      拦截无效请求，降低服务器处理压力；
+      实现第三方API授权，无需每次都输入用户名密码鉴权；
+      身份校验，防止CSRF攻击。 
+
+5.JWT简析。JSON Web Token(JWT)是非常流行的跨域身份验证解决方案

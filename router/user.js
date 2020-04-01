@@ -1,16 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const { login, getUserInfo } = require('../controller/user')
 
-router.get('/info', function(req, res, next){
-  res.json('user info....');
-})
-
-router.post('/login', function(req, res){
-  console.log(req.body)
-  res.json({
-    code: 0,
-    msg: '登录成功'
-  })
-})
-
+router.post('/login', login)
+router.post('/info', getUserInfo)
 module.exports = router
