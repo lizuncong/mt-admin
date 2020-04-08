@@ -47,3 +47,6 @@ Nginx服务器搭建
       身份校验，防止CSRF攻击。 
 
 5.JWT简析。JSON Web Token(JWT)是非常流行的跨域身份验证解决方案
+
+
+6.2-10Navicat创建外键
