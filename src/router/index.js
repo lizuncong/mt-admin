@@ -8,7 +8,6 @@ const { decoded } = require('../utils/tools')
 
 const { JWT_PRIVATE_KEY } = require('../utils/constant')
 
-
 // 注册路由
 const router = express.Router()
 
@@ -25,7 +24,7 @@ router.use(jwt({
   ]
 }))
 
-router.use(function(req, res, next){
+router.use(function (req, res, next) {
   // 解析token，获取用户登录信息并挂在req上
   const dec = decoded(req)
   req.email = dec.email
@@ -48,7 +47,6 @@ router.use((req, res, next) => {
   next(boom.notFound('接口不存在'))
 })
 
-
 /*
 * 自定义路由异常处理中间件
 * 注意两点：
@@ -57,7 +55,7 @@ router.use((req, res, next) => {
 * */
 router.use((err, req, res, next) => {
   // console.log('全局异常捕获。。。。', err)
-  if(err && err.name === 'UnauthorizedError'){
+  if (err && err.name === 'UnauthorizedError') {
     const { status = 401, message } = err
     const result = resultVoUtil.error(status, 'Token验证失败', message)
     res.status(status)
@@ -65,7 +63,7 @@ router.use((err, req, res, next) => {
     return
   }
   const msg = (err && err.message) || '系统错误'
-  const data = err && err.data;
+  const data = err && err.data
   const statusCode = (err.output && err.output.statusCode) || 500
   const result = resultVoUtil.error(statusCode, msg, data)
   res.status(statusCode)

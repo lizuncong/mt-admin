@@ -49,4 +49,8 @@ Nginx服务器搭建
 5.JWT简析。JSON Web Token(JWT)是非常流行的跨域身份验证解决方案
 
 
-6.2-10Navicat创建外键
+普通方法测试可以使用jest
+http接口测试使用supertest
+
+
+5-1已看完

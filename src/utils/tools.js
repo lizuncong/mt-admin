@@ -1,18 +1,18 @@
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
-const { PWD_SALT, JWT_PRIVATE_KEY } = require('./constant')
+const { JWT_PRIVATE_KEY } = require('./constant')
+const { CRYPTO_SECRET_KEY } = require('../config')
 
-function md5(pwd){
-  // 注意参数需要为String类型，否则会出错
-  const s = `${pwd}${PWD_SALT}`
-  return crypto.createHash('md5')
-    .update(String(s)).digest('hex')
+function md5 (content) {
+  const str = `content=${content}&key=${CRYPTO_SECRET_KEY}`
+  const md5 = crypto.createHash('md5')
+  return md5.update(str).digest('hex')
 }
 
-function decoded(req){
+function decoded (req) {
   let token = req.get('Authorization') || ''
   token = token.replace('Bearer', '').trim()
-  if(token){
+  if (token) {
     return jwt.verify(token, JWT_PRIVATE_KEY)
   } else {
     return {}
