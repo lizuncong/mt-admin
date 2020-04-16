@@ -1,5 +1,7 @@
-const Sequelize = require('sequelize')
-const { mysql } = require('../config/index')
+import Sequelize from 'sequelize'
+import config from '../config/index'
+
+const { mysql } = config
 
 const conf = {
   host: mysql.host,
@@ -15,4 +17,4 @@ const conf = {
 
 const seq = new Sequelize(mysql.database, mysql.user, mysql.password, conf)
 
-module.exports = seq
+export default seq

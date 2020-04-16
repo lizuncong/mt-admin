@@ -1,12 +1,14 @@
-const express = require('express')
-const boom = require('boom')
-const jwt = require('express-jwt')
-const resultVoUtil = require('../utils/resultVoUtil')
-const userRouter = require('./user')
-const productRouter = require('./product')
-const { decoded } = require('../utils/tools')
+import express from 'express'
+import boom from 'boom'
+import jwt from 'express-jwt'
+import resultVoUtil from '../utils/resultVoUtil'
+import userRouter from './user'
+import productRouter from './product'
+import { decoded } from '../utils/tools'
 
-const { JWT_PRIVATE_KEY } = require('../utils/constant')
+import constant from '../utils/constant'
+
+const { JWT_PRIVATE_KEY } = constant
 
 // 注册路由
 const router = express.Router()
@@ -70,4 +72,4 @@ router.use((err, req, res, next) => {
   res.json(result)
 })
 
-module.exports = router
+export default router

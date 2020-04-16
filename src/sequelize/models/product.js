@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize')
-const seq = require('../index')
-const User = require('./user')
+import { DataTypes } from 'sequelize'
+import seq from '../index'
+import User from './user'
 
 const Product = seq.define('product', {
   productName: {
@@ -22,4 +22,4 @@ User.hasMany(Product, {
 })
 Product.belongsTo(User)
 
-module.exports = Product
+export default Product

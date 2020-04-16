@@ -16,9 +16,10 @@ module.exports = (env) => {
     entry: {
       server: path.resolve(__dirname, '../src/app.js')
     },
+    // 打包的时候，node_modules下面的模块不会打包进bundle中
     externals: [
       nodeExternals({})
-    ], // 打包的时候，node_modules下面的模块不会打包进bundle中
+    ],
     output: {
       publicPath: '/assets/',
       path: path.resolve(__dirname, '../dist'),

@@ -1,6 +1,7 @@
-const express = require('express')
+import express from 'express'
+import { upload } from '../controller/product'
+
 const router = express.Router()
-const { upload } = require('../controller/product')
 
 router.post('/upload', upload)
-module.exports = router
+export default router

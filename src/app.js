@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-const router = require('./router')
+import router from './router'
 
 const app = express()
 

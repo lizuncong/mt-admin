@@ -1,6 +1,6 @@
-const ResultVo = require('../vo/result')
+import ResultVo from '../vo/result'
 
-exports.success = (data, msg) => {
+const success = (data, msg) => {
   return new ResultVo({
     code: 0,
     msg: msg || 'success',
@@ -8,10 +8,15 @@ exports.success = (data, msg) => {
   })
 }
 
-exports.error = (code, msg, data) => {
+const error = (code, msg, data) => {
   return new ResultVo({
     code,
     msg,
     data
   })
+}
+
+export default {
+  success,
+  error
 }

@@ -5,8 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --colors",
-    "dev": "cross-env NODE_ENV=development nodemon --inspect=9001 dist/server.js",
-    "build": "webpack --env.NODE_ENV=development --config build/webpack.base.js"
+    "dev": "cross-env NODE_ENV=development nodemon --watch dist --inspect=9001 dist/server.js",
+    "build": "webpack --watch --env.NODE_ENV=development --config build/webpack.base.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,11 +1,13 @@
-const { check, validationResult } = require('express-validator')
-const boom = require('boom')
-const jwt = require('jsonwebtoken')
-const resultVoUtil = require('../utils/resultVoUtil')
-const { getAdminUserList, findUser } = require('../service/user')
-const { JWT_PRIVATE_KEY, JWT_EXPIRES_IN } = require('../utils/constant')
+import { check, validationResult } from 'express-validator'
+import boom from 'boom'
+import jwt from 'jsonwebtoken'
+import resultVoUtil from '../utils/resultVoUtil'
+import { getAdminUserList, findUser } from '../service/user'
+import constant from '../utils/constant'
 
-const login = async (req, res, next) => {
+const { JWT_PRIVATE_KEY, JWT_EXPIRES_IN } = constant
+
+export const login = async (req, res, next) => {
   const { email, password } = req.body
   await Promise.all([
     check('email').isEmail().withMessage('邮箱格式不正确').run(req),
@@ -28,13 +30,8 @@ const login = async (req, res, next) => {
   res.json(data)
 }
 
-const getUserInfo = async (req, res, next) => {
+export const getUserInfo = async (req, res, next) => {
   const user = await findUser(req.email)
   const result = resultVoUtil.success(user)
   res.json(result)
-}
-
-module.exports = {
-  login,
-  getUserInfo
 }

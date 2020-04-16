@@ -1,6 +1,6 @@
-const seq = require('../index')
-const User = require('./user')
-const Product = require('./product')
+import seq from '../index'
+import './user'
+import './product'
 
 seq.authenticate().then(() => {
   console.log('ok')

@@ -1,15 +1,18 @@
-const crypto = require('crypto')
-const jwt = require('jsonwebtoken')
-const { JWT_PRIVATE_KEY } = require('./constant')
-const { CRYPTO_SECRET_KEY } = require('../config')
+import crypto from 'crypto'
+import jwt from 'jsonwebtoken'
+import constant from './constant'
+import config from '../config'
 
-function md5 (content) {
+const { JWT_PRIVATE_KEY } = constant
+const { CRYPTO_SECRET_KEY } = config
+
+export function md5 (content) {
   const str = `content=${content}&key=${CRYPTO_SECRET_KEY}`
   const md5 = crypto.createHash('md5')
   return md5.update(str).digest('hex')
 }
 
-function decoded (req) {
+export function decoded (req) {
   let token = req.get('Authorization') || ''
   token = token.replace('Bearer', '').trim()
   if (token) {
@@ -17,9 +20,4 @@ function decoded (req) {
   } else {
     return {}
   }
-}
-
-module.exports = {
-  md5,
-  decoded
 }
