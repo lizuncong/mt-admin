@@ -1,14 +1,21 @@
 import seq from '../index'
-import './user'
-import './product'
+import User from './user'
+import Product from './product'
 
-seq.authenticate().then(() => {
-  console.log('ok')
-}).catch(e => {
-  console.log('error...', e)
+User.hasMany(Product, {
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE'
 })
 
-seq.sync({ alter: true }).then(() => {
-  console.log('sync ok..')
-  process.exit()
-})
+Product.belongsTo(User)
+
+const sync = () => {
+  return seq.sync({ alter: true })
+}
+
+export default { sync }
+
+export {
+  User,
+  Product
+}

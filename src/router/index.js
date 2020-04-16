@@ -4,7 +4,7 @@ import jwt from 'express-jwt'
 import resultVoUtil from '../utils/resultVoUtil'
 import userRouter from './user'
 import productRouter from './product'
-import { decoded } from '../utils/tools'
+// import { decoded } from '../utils/tools'
 
 import constant from '../utils/constant'
 
@@ -16,6 +16,7 @@ const router = express.Router()
 // jwt，所有接口都需要进行鉴权验证，除非在白名单中的接口
 // 客户端的请求头要设置authorization = 'Bearer ' + token，这样express-jwt才能取到token，
 // 否则会报错：token验证失败
+// express-jwt中间件会自动解析token的信息，可通过req.user获取
 router.use(jwt({
   secret: JWT_PRIVATE_KEY,
   credentialsRequired: true
@@ -25,13 +26,6 @@ router.use(jwt({
     '/user/login'
   ]
 }))
-
-router.use(function (req, res, next) {
-  // 解析token，获取用户登录信息并挂在req上
-  const dec = decoded(req)
-  req.email = dec.email
-  next()
-})
 
 router.get('/', function (req, res) {
   res.send('欢迎进入后台管理系统')

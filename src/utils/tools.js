@@ -11,13 +11,3 @@ export function md5 (content) {
   const md5 = crypto.createHash('md5')
   return md5.update(str).digest('hex')
 }
-
-export function decoded (req) {
-  let token = req.get('Authorization') || ''
-  token = token.replace('Bearer', '').trim()
-  if (token) {
-    return jwt.verify(token, JWT_PRIVATE_KEY)
-  } else {
-    return {}
-  }
-}
