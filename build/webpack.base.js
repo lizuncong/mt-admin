@@ -23,14 +23,13 @@ module.exports = (env) => {
     output: {
       publicPath: '/assets/',
       path: path.resolve(__dirname, '../dist'),
-      filename: '[name].js',
-      chunkFilename: 'node/[name].js',
+      filename: isDevelopment ? '[name].js' : '[name].[chunkhash:8].js',
+      chunkFilename: isDevelopment ? '[name].chunk.js' : '[name].[chunkhash:8].chunk.js',
       libraryTarget: 'commonjs2',
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: (info) => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
     },
     resolve: {
-      extensions: ['.js'],
       modules: ['node_modules', 'src'],
       alias: {
         src: path.resolve(__dirname, '../src')
@@ -46,6 +45,7 @@ module.exports = (env) => {
             {
               loader: 'babel-loader',
               options: {
+                cacheDirectory: isDevelopment,
                 presets: [
                   [
                     '@babel/preset-env',
@@ -88,7 +88,6 @@ module.exports = (env) => {
     plugins: [
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
-        'process.env.BROWSER': false,
         __DEV__: isDevelopment
       }),
       new webpack.BannerPlugin({

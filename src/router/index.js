@@ -28,7 +28,7 @@ router.use(jwt({
 }))
 
 router.get('/', function (req, res) {
-  res.send('欢迎进入后台管理系统')
+  res.send('home')
 })
 
 router.use('/user', userRouter)
