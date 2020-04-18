@@ -1,11 +1,11 @@
 import { check, validationResult } from 'express-validator'
 import boom from 'boom'
-import jwt from 'jsonwebtoken'
+// import jwt from 'jsonwebtoken'
 import resultVoUtil from '../utils/resultVoUtil'
 import { getAdminUserList, findUser } from '../service/user'
-import constant from '../utils/constant'
+// import constant from '../utils/constant'
 
-const { JWT_PRIVATE_KEY, JWT_EXPIRES_IN } = constant
+// const { JWT_PRIVATE_KEY, JWT_EXPIRES_IN } = constant
 
 export const login = async (req, res, next) => {
   const { email, password } = req.body
@@ -20,13 +20,15 @@ export const login = async (req, res, next) => {
   }
 
   // 根据用户输入的邮箱密码比对数据库中的用户信息，如果正确，则登录成功并生成token。
-  const token = jwt.sign(
-    { email },
-    JWT_PRIVATE_KEY,
-    { expiresIn: JWT_EXPIRES_IN }
-  )
+  // const token = jwt.sign(
+  //   { email },
+  //   JWT_PRIVATE_KEY,
+  //   { expiresIn: JWT_EXPIRES_IN }
+  // )
+  req.session.username = email
+  req.session.password = password
   const userList = await getAdminUserList()
-  const data = resultVoUtil.success({ token }, '登录成功')
+  const data = resultVoUtil.success({ token: 'test' }, '登录成功')
   res.json(data)
 }
 

@@ -13,5 +13,7 @@ export default {
     host: '127.0.0.1',
     port: 6379
   },
-  CRYPTO_SECRET_KEY: 'AD*_*FD*_*VFDdsrre' // 密钥
+  CRYPTO_SECRET_KEY: 'AD*_*FD*_*VFDdsrre', // 密钥
+  SESSION_SECRET: 'session_secret_123456',
+  COOKIE_MAX_AGE: 24 * 60 * 60 * 1000 // 1天过期
 }
