@@ -41,8 +41,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.resolve(__dirname, 'public')))
 
 app.use(session({
-  name: 'mt_admin_token',
-  store: new RedisStore({ client: RedisClient }),
+  name: 'mt_admin_sid',
+  store: new RedisStore({ client: RedisClient, prefix: 'mt_admin_sess:' }),
   secret: config.SESSION_SECRET,
   cookie: {
     path: '/',
