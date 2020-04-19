@@ -8,14 +8,12 @@ const whiteList = [
   '/user/login'
 ]
 const loginCheck = (req, res, next) => {
-  console.log('req.path..', req.path)
+  // 白名单中的接口不需要登录验证
   if (whiteList.find(i => i === req.path)) {
-    console.log('白名单中的接口不需要登录验证。。')
     next()
     return
   }
   if (req.session.username) {
-    console.log('用户已登录过')
     next()
     return
   }

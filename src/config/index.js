@@ -15,5 +15,5 @@ export default {
   },
   CRYPTO_SECRET_KEY: 'AD*_*FD*_*VFDdsrre', // 密钥
   SESSION_SECRET: 'session_secret_123456',
-  COOKIE_MAX_AGE: 24 * 60 * 60 * 1000 // 1天过期
+  COOKIE_MAX_AGE: 60 * 60 * 1000 // 1小时过期
 }

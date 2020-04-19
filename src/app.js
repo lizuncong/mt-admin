@@ -1,10 +1,9 @@
 import path from 'path'
 import express from 'express'
-// import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import session from 'express-session'
 import ConnectRedis from 'connect-redis'
-// import bodyParser from 'body-parser'
+import * as rfs from 'rotating-file-stream'
 // import cors from 'cors'
 import models from './sequelize/models'
 import config from './config'
@@ -12,13 +11,30 @@ import router from './router'
 import RedisClient from './redis'
 import resultVoUtil from './utils/resultVoUtil'
 import LoginCheck from './middleware/loginCheck'
+import { generateLogFileName } from './utils/log'
+import constants from './utils/constant'
+
+const { LOG_INTERVAL } = constants
 
 const app = express()
 
 const RedisStore = ConnectRedis(session)
 
 // app.use(cors()) // 解决跨域的问题
-app.use(logger('dev'))
+if (!__DEV__) {
+  app.use(logger('dev', {
+    stream: process.stdout
+  }))
+} else {
+  const accessLogStream = rfs.createStream(generateLogFileName, {
+    interval: LOG_INTERVAL,
+    path: path.join(__dirname, '../', 'log')
+  })
+  app.use(logger('combined', {
+    stream: accessLogStream
+  }))
+}
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 // app.use(cookieParser())
@@ -42,7 +58,6 @@ app.use(LoginCheck)
 app.use('/', router)
 
 /*
-* 自定义路由异常处理中间件
 * 注意两点：
 * 第一，方法的参数不能减少
 * 第二，方法必须放在路由最后
