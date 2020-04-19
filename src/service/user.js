@@ -1,10 +1,17 @@
-import { querySql, queryOne } from '../database'
-export const getAdminUserList = () => {
-  const sql = 'select * from admin_user'
-  return querySql(sql)
-}
+import { User } from '../sequelize/models'
 
-export const findUser = (username) => {
-  const sql = `select id, avatar, nickname, role, username from admin_user where username='${username}'`
-  return queryOne(sql)
+export const getUserInfo = async (phone, password) => {
+  const whereOpt = {
+    phone: phone || ''
+  }
+  if (password) {
+    whereOpt.password = password
+  }
+
+  const user = await User.findOne({
+    attributes: ['id', 'userName', 'phone', 'gender', 'avatar'],
+    where: whereOpt
+  })
+  console.log('user...', user)
+  return user
 }

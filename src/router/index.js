@@ -1,7 +1,7 @@
 import express from 'express'
 import boom from 'boom'
 // import jwt from 'express-jwt'
-import resultVoUtil from '../utils/resultVoUtil'
+// import resultVoUtil from '../utils/resultVoUtil'
 import userRouter from './user'
 import productRouter from './product'
 // import { decoded } from '../utils/tools'
@@ -31,18 +31,6 @@ router.get('/', function (req, res) {
   res.send('home')
 })
 
-router.get('/session', (req, res) => {
-  if (!req.session.viewNum) {
-    req.session.viewNum = 0
-  }
-  req.session.viewNum = req.session.viewNum + 1
-  if (req.session.email) {
-    res.send('已登录')
-    return
-  }
-  res.send('未登录')
-})
-
 router.use('/user', userRouter)
 router.use('/product', productRouter)
 
@@ -54,7 +42,5 @@ router.use('/product', productRouter)
 router.use((req, res, next) => {
   next(boom.notFound('接口不存在'))
 })
-
-
 
 export default router

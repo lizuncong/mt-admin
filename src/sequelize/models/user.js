@@ -1,31 +1,33 @@
-import { DataTypes } from 'sequelize'
+import dataTypes from '../dataTypes'
 import seq from '../index'
 import { md5 } from '../../utils/tools'
 
 const User = seq.define('user', {
-  // id会自动创建，并设为主键，而且自增
   userName: {
-    type: DataTypes.STRING,
+    type: dataTypes.STRING,
     allowNull: false
   },
   password: {
-    type: DataTypes.STRING,
+    type: dataTypes.STRING,
     allowNull: false,
     set (value) {
       this.setDataValue('password', md5(value))
     }
   },
   phone: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: dataTypes.STRING,
+    allowNull: false,
+    unique: true
   },
-  nickname: {
-    type: DataTypes.STRING,
-    allowNull: false
+  gender: {
+    type: dataTypes.DECIMAL,
+    allowNull: false,
+    defaultValue: 3,
+    comment: '性别(1男性，2女性 3保密)'
   },
-  status: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+  avatar: {
+    type: dataTypes.STRING,
+    comment: '头像'
   }
 })
 

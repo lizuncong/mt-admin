@@ -21,6 +21,8 @@ const app = express()
 const RedisStore = ConnectRedis(session)
 
 // app.use(cors()) // 解决跨域的问题
+
+// 开发环境，日志直接打印到控制台
 if (!__DEV__) {
   app.use(logger('dev', {
     stream: process.stdout
@@ -37,7 +39,6 @@ if (!__DEV__) {
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-// app.use(cookieParser())
 app.use(express.static(path.resolve(__dirname, 'public')))
 
 app.use(session({
@@ -63,7 +64,8 @@ app.use('/', router)
 * 第二，方法必须放在路由最后
 * */
 app.use((err, req, res, next) => {
-  // console.log('全局异常捕获。。。。', err)
+  console.log('全局异常捕获')
+  console.log(err)
   if (err && err.name === 'UnauthorizedError') {
     const { status = 401, message } = err
     const result = resultVoUtil.error(status, 'Token验证失败', message)

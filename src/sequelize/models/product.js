@@ -1,17 +1,17 @@
-import { DataTypes } from 'sequelize'
+import dataTypes from '../dataTypes'
 import seq from '../index'
 
 const Product = seq.define('product', {
   productName: {
-    type: DataTypes.STRING,
+    type: dataTypes.STRING,
     allowNull: false
   },
   productPrice: {
-    type: DataTypes.INTEGER,
+    type: dataTypes.INTEGER,
     allowNull: false
   },
   productDescription: {
-    type: DataTypes.STRING,
+    type: dataTypes.STRING,
     allowNull: false
   }
 })

@@ -5,7 +5,8 @@
 
 const whiteList = [
   '/',
-  '/user/login'
+  '/user/login',
+  '/user/isPhoneExist'
 ]
 const loginCheck = (req, res, next) => {
   // 白名单中的接口不需要登录验证
@@ -13,13 +14,13 @@ const loginCheck = (req, res, next) => {
     next()
     return
   }
-  if (req.session.username) {
+  if (req.session.phone) {
     next()
     return
   }
   res.json({
     msg: '未登录',
-    info: 'req.session.username没找到'
+    info: 'req.session.phone没找到'
   })
 }
 
