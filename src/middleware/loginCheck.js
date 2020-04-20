@@ -6,6 +6,7 @@
 const whiteList = [
   '/',
   '/user/login',
+  '/user/register',
   '/user/isPhoneExist'
 ]
 const loginCheck = (req, res, next) => {

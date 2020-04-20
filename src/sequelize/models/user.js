@@ -1,7 +1,7 @@
 import dataTypes from '../dataTypes'
 import seq from '../index'
-import { md5 } from 'src/utils/tools'
-import { userEnum } from 'src/enums'
+import { md5 } from '../../utils/tools'
+import { userEnum } from '../../enums'
 
 const User = seq.define('user', {
   userName: {

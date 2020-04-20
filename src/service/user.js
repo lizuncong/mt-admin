@@ -8,9 +8,25 @@ export const getUserInfo = async (phone, password) => {
     whereOpt.password = password
   }
 
-  const user = await User.findOne({
+  return await User.findOne({
     attributes: ['id', 'userName', 'phone', 'gender', 'avatar'],
     where: whereOpt
   })
-  return user
+}
+
+/*
+* 创建用户
+* @param {string} userName 用户名
+* @param {string} password 用户名
+* @param {string} userName 用户名
+* @param {string} userName 用户名
+* */
+export const createUser = async ({ userName, password, phone, gender, avatar }) => {
+  return await User.create({
+    userName,
+    password,
+    phone,
+    gender,
+    avatar
+  })
 }

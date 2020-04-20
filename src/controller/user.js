@@ -2,9 +2,9 @@ import { check, validationResult } from 'express-validator'
 import boom from 'boom'
 // import jwt from 'jsonwebtoken'
 import resultVoUtil from '../utils/resultVoUtil'
-import UserVo from 'src/vo/user'
+import UserVo from '../vo/user'
 import { resultEnum } from '../enums'
-import { getUserInfo } from '../service/user'
+import { getUserInfo, createUser } from '../service/user'
 // import constant from '../utils/constant'
 
 // const { JWT_PRIVATE_KEY, JWT_EXPIRES_IN } = constant
@@ -35,7 +35,24 @@ export const login = async (req, res, next) => {
 }
 
 export const register = async (req, res, next) => {
-
+  const { userName, password, phone, gender, avatar } = req.body
+  const findUser = await getUserInfo(phone)
+  if (findUser) {
+    // 用户已存在，不能重复注册
+    res.json(resultVoUtil.error(resultEnum.USER_EXIST.code, resultEnum.USER_EXIST.msg))
+    return
+  }
+  try {
+    const user = await createUser({ userName, password, phone, gender, avatar })
+    if (user) {
+      res.json(resultVoUtil.success(null, '注册成功'))
+    } else {
+      res.json(resultVoUtil.error(resultEnum.REGISTER_ERROR.code, resultEnum.REGISTER_ERROR.msg))
+    }
+  } catch (ex) {
+    console.log('注册接口异常', ex.message, ex.stack)
+    res.json(resultVoUtil.error(resultEnum.REGISTER_ERROR.code, resultEnum.REGISTER_ERROR.msg))
+  }
 }
 
 export const isPhoneExist = async (req, res, next) => {

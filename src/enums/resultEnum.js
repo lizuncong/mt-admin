@@ -4,6 +4,14 @@ export default {
     code: 10001,
     msg: '用户不存在'
   },
+  USER_EXIST: { // 用户已存在
+    code: 10002,
+    msg: '用户已存在'
+  },
+  REGISTER_ERROR: {
+    code: 10003,
+    msg: '注册失败'
+  },
   PRODUCT_STOCK_ERROR: {
     code: 11,
     msg: '商品库存不正确'
