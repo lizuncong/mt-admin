@@ -22,7 +22,7 @@ const schema = {
       minLength: 5
     },
     gender: {
-      type: 'number',
+      type: 'string',
       minimum: 1,
       maximum: 3
     },

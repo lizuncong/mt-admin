@@ -1,37 +1,30 @@
 import { check, validationResult } from 'express-validator'
 import boom from 'boom'
-// import jwt from 'jsonwebtoken'
 import resultVoUtil from '../utils/resultVoUtil'
 import UserVo from '../vo/user'
 import { resultEnum } from '../enums'
+import { md5 } from '../utils/tools'
 import { getUserInfo, createUser } from '../service/user'
-// import constant from '../utils/constant'
-
-// const { JWT_PRIVATE_KEY, JWT_EXPIRES_IN } = constant
 
 export const login = async (req, res, next) => {
-  // const { email, password } = req.body
-  // await Promise.all([
-  //   check('email').isEmail().withMessage('邮箱格式不正确').run(req),
-  //   check('password').isLength({ min: 6 }).withMessage('密码不能少于6位').run(req)
-  // ])
-  // const result = validationResult(req)
-  //
-  // if (!result.isEmpty()) {
-  //   return next(boom.badRequest('参数不正确', result.array()))
-  // }
+  const { phone, password } = req.body
+  await Promise.all([
+    check('phone').isMobilePhone(['zh-CN']).withMessage('用户名不正确').run(req),
+    check('password').isLength({ min: 6 }).withMessage('密码不能少于6位').run(req)
+  ])
+  const result = validationResult(req)
 
-  // 根据用户输入的邮箱密码比对数据库中的用户信息，如果正确，则登录成功并生成token。
-  // const token = jwt.sign(
-  //   { email },
-  //   JWT_PRIVATE_KEY,
-  //   { expiresIn: JWT_EXPIRES_IN }
-  // )
-  // req.session.username = email
-  // req.session.password = password
-  // const userList = await getAdminUserList()
-  // const data = resultVoUtil.success({ token: 'test' }, '登录成功')
-  // res.json(data)
+  if (!result.isEmpty()) {
+    return next(boom.badRequest('参数不正确', result.array()))
+  }
+
+  const userInfo = await getUserInfo(phone, md5(password))
+  if (!userInfo) {
+    res.json(resultVoUtil.error(resultEnum.LOGIN_ERROR.code, resultEnum.LOGIN_ERROR.msg))
+    return
+  }
+  req.session.userInfo = userInfo
+  res.json(resultVoUtil.success(null, '登录成功'))
 }
 
 export const register = async (req, res, next) => {

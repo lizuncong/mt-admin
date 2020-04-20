@@ -1,3 +1,5 @@
+import resultVoUtil from '../utils/resultVoUtil'
+import { resultEnum } from '../enums'
 /*
 * 登录验证中间件
 * 在白名单中的接口不需要验证
@@ -15,14 +17,15 @@ const loginCheck = (req, res, next) => {
     next()
     return
   }
-  if (req.session.phone) {
+  if (req.session.userInfo && req.session.userInfo.phone) {
     next()
     return
   }
-  res.json({
-    msg: '未登录',
-    info: 'req.session.phone没找到'
-  })
+  res.json(resultVoUtil.error(
+    resultEnum.USER_NOT_LOGIN.code,
+    resultEnum.USER_NOT_LOGIN.msg,
+    'req.session.userInfo.phone没找到'
+  ))
 }
 
 export default loginCheck

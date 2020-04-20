@@ -7,8 +7,10 @@ const { userValidate } = validate
 
 const router = express.Router()
 
-console.log('haheeafafads')
 router.post('/login', login)
 router.post('/register', generateValidator(userValidate), register)
 router.post('/isPhoneExist', isPhoneExist)
+router.post('/test', async (req, res, next) => {
+  res.json(req.session.userInfo)
+})
 export default router

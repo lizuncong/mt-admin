@@ -16,6 +16,14 @@ export default {
     code: 10004,
     msg: '参数格式不正确'
   },
+  LOGIN_ERROR: {
+    code: 10005,
+    msg: '用户名或密码不正确'
+  },
+  USER_NOT_LOGIN: {
+    code: 1006,
+    msg: '用户未登录'
+  },
   PRODUCT_STOCK_ERROR: {
     code: 11,
     msg: '商品库存不正确'
