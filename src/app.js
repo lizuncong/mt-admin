@@ -58,11 +58,6 @@ app.use(LoginCheck)
 
 app.use('/', router)
 
-/*
-* 注意两点：
-* 第一，方法的参数不能减少
-* 第二，方法必须放在路由最后
-* */
 app.use((err, req, res, next) => {
   console.log('全局异常捕获')
   console.log(err)
