@@ -2,6 +2,8 @@ import { check, validationResult } from 'express-validator'
 import boom from 'boom'
 // import jwt from 'jsonwebtoken'
 import resultVoUtil from '../utils/resultVoUtil'
+import UserVo from 'src/vo/user'
+import { resultEnum } from '../enums'
 import { getUserInfo } from '../service/user'
 // import constant from '../utils/constant'
 
@@ -39,7 +41,11 @@ export const register = async (req, res, next) => {
 export const isPhoneExist = async (req, res, next) => {
   const { phone } = req.body
   const user = await getUserInfo(phone)
-
-  const data = resultVoUtil.success(user)
+  let data
+  if (user) {
+    data = resultVoUtil.success(new UserVo(user))
+  } else {
+    data = resultVoUtil.error(resultEnum.USER_NOT_EXIST.code, resultEnum.USER_NOT_EXIST.msg)
+  }
   res.json(data)
 }

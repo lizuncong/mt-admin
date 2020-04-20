@@ -1,6 +1,7 @@
 import dataTypes from '../dataTypes'
 import seq from '../index'
-import { md5 } from '../../utils/tools'
+import { md5 } from 'src/utils/tools'
+import { userEnum } from 'src/enums'
 
 const User = seq.define('user', {
   userName: {
@@ -22,7 +23,7 @@ const User = seq.define('user', {
   gender: {
     type: dataTypes.DECIMAL,
     allowNull: false,
-    defaultValue: 3,
+    defaultValue: userEnum.GENDER_UNKNOWN.code,
     comment: '性别(1男性，2女性 3保密)'
   },
   avatar: {

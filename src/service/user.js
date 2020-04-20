@@ -12,6 +12,5 @@ export const getUserInfo = async (phone, password) => {
     attributes: ['id', 'userName', 'phone', 'gender', 'avatar'],
     where: whereOpt
   })
-  console.log('user...', user)
   return user
 }
