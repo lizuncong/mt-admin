@@ -17,8 +17,8 @@ const User = seq.define('user', {
   },
   phone: {
     type: dataTypes.STRING,
-    allowNull: false,
-    unique: true
+    allowNull: false
+    // unique: true // 这样定义索引会有问题
   },
   gender: {
     type: dataTypes.DECIMAL,
@@ -30,6 +30,7 @@ const User = seq.define('user', {
     type: dataTypes.STRING,
     comment: '头像'
   }
-})
+}, { indexes: [{ unique: true, fields: ['phone'] }] }
+)
 
 export default User

@@ -5,7 +5,7 @@ import userSchema from './user'
 * */
 
 const ajv = new Ajv({
-  allErrors: true
+  // allErrors: true
 })
 
 const validate = (schema, data = {}) => {

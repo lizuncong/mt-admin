@@ -30,7 +30,9 @@ const schema = {
       type: 'string',
       maxLength: 255
     }
-  }
+  },
+  required: ['userName', 'password', 'phone', 'gender']
+
 }
 
 export default schema

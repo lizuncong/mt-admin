@@ -12,6 +12,10 @@ export default {
     code: 10003,
     msg: '注册失败'
   },
+  JSON_SCHEMA_ERROR: {
+    code: 10004,
+    msg: '参数格式不正确'
+  },
   PRODUCT_STOCK_ERROR: {
     code: 11,
     msg: '商品库存不正确'
