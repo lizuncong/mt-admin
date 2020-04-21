@@ -27,6 +27,14 @@ export const login = async (req, res, next) => {
   res.json(resultVoUtil.success(null, '登录成功'))
 }
 
+export const logout = async (req, res, next) => {
+
+}
+
+export const getInfo = async (req, res, next) => {
+  const userInfo = req.session.userInfo
+  res.json(resultVoUtil.success(userInfo))
+}
 export const register = async (req, res, next) => {
   const { userName, password, phone, gender, avatar } = req.body
   const findUser = await getUserInfo(phone)
