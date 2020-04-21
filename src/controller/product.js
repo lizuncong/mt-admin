@@ -1,3 +1,4 @@
+import xss from 'xss'
 import { createProduct } from '../service/product'
 import resultVoUtil from '../utils/resultVoUtil'
 import resultEnum from '../enums/resultEnum'
@@ -7,7 +8,13 @@ export const create = async (req, res, next) => {
   const { id: userId } = req.session.userInfo
 
   try {
-    const product = await createProduct({ name, price, image, description, userId })
+    const product = await createProduct({
+      name,
+      price,
+      image,
+      description: xss(description),
+      userId
+    })
     if (product) {
       res.json(resultVoUtil.success(null, '创建成功'))
     } else {

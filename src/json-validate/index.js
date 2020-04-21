@@ -1,5 +1,6 @@
 import Ajv from 'ajv'
 import userSchema from './user'
+import productSchema from './product'
 /*
 * JSON schema 校验
 * */
@@ -18,5 +19,8 @@ const validate = (schema, data = {}) => {
 export default {
   userValidate (data) {
     return validate(userSchema, data)
+  },
+  productValidate (data) {
+    return validate(productSchema, data)
   }
 }
