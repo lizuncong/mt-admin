@@ -1,7 +1,7 @@
 import express from 'express'
-import { upload } from '../controller/product'
+import { create } from '../controller/product'
 
 const router = express.Router()
 
-router.post('/upload', upload)
+router.post('/create', create)
 export default router

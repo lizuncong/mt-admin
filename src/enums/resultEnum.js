@@ -39,5 +39,9 @@ export default {
   EDIT_PASSWORD_FAIL: {
     code: 10010,
     msg: '修改密码失败'
+  },
+  CREATE_PRODUCT_ERROR: {
+    code: 10011,
+    msg: '创建商品失败'
   }
 }

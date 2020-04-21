@@ -48,7 +48,8 @@
     "supertest": "^4.0.2",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "xss": "^1.0.6"
   },
   "engines": {
     "node": ">=8.16.2",
