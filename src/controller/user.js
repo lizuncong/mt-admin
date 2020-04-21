@@ -28,7 +28,8 @@ export const login = async (req, res, next) => {
 }
 
 export const logout = async (req, res, next) => {
-
+  delete req.session.userInfo
+  res.json(resultVoUtil.success())
 }
 
 export const getInfo = async (req, res, next) => {
