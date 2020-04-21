@@ -10,5 +10,5 @@ const router = express.Router()
 router.post('/login', login)
 router.post('/register', generateValidator(userValidate), register)
 router.post('/isPhoneExist', isPhoneExist)
-router.patch('/editUserInfo', editUserInfo)
+router.patch('/editUserInfo', generateValidator(userValidate), editUserInfo)
 export default router

@@ -23,16 +23,14 @@ const schema = {
     },
     gender: {
       type: 'string',
-      minimum: 1,
-      maximum: 3
+      pattern: '^[123]$'
     },
     avatar: {
       type: 'string',
       maxLength: 255
     }
-  },
-  required: ['userName', 'password', 'phone', 'gender']
-
+  }
+  // required: ['userName', 'password', 'phone', 'gender']
 }
 
 export default schema
