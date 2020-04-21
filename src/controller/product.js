@@ -1,5 +1,5 @@
 import xss from 'xss'
-import { createProduct } from '../service/product'
+import { createProduct, findAllProducts } from '../service/product'
 import resultVoUtil from '../utils/resultVoUtil'
 import resultEnum from '../enums/resultEnum'
 
@@ -26,4 +26,11 @@ export const create = async (req, res, next) => {
     const { code, msg } = resultEnum.CREATE_PRODUCT_ERROR
     res.json(resultVoUtil.error(code, msg))
   }
+}
+
+// 分页获取商品列表
+export const getProductList = async (req, res, next) => {
+  const { pageNo, pageSize, userId } = req.body
+  const result = await findAllProducts({ pageNo, pageSize, userId })
+  res.json(resultVoUtil.success(result))
 }

@@ -16,7 +16,7 @@ const schema = {
     },
     description: {
       type: 'string',
-      maxLength: 20,
+      maxLength: 255,
       minLength: 5
     }
   }
