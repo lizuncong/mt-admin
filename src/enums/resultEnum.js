@@ -1,10 +1,10 @@
 // 返回结果状态码
 export default {
-  USER_NOT_EXIST: { // 用户不存在
+  USER_NOT_EXIST: {
     code: 10001,
     msg: '用户不存在'
   },
-  USER_EXIST: { // 用户已存在
+  USER_EXIST: {
     code: 10002,
     msg: '用户已存在'
   },
@@ -24,16 +24,8 @@ export default {
     code: 1006,
     msg: '用户未登录'
   },
-  PRODUCT_STOCK_ERROR: {
-    code: 11,
-    msg: '商品库存不正确'
-  },
-  ORDER_NOT_EXIST: {
-    code: 12,
-    msg: '订单不存在'
-  },
-  PRODUCT_DETAIL_NOT_EXIST: {
-    code: 13,
-    msg: '订单详情不存在'
+  FILE_TOO_LARGE: {
+    code: 1007,
+    msg: '文件体积超过限制'
   }
 }

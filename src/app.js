@@ -13,8 +13,8 @@ import resultVoUtil from './utils/resultVoUtil'
 import LoginCheck from './middleware/loginCheck'
 import { generateLogFileName } from './utils/log'
 import constants from './utils/constant'
-
-const { LOG_INTERVAL } = constants
+import { resultEnum } from './enums'
+const { LOG_INTERVAL, UPLOAD_FILE_DEST } = constants
 
 const app = express()
 
@@ -40,6 +40,7 @@ if (!__DEV__) {
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.resolve(__dirname, 'public')))
+app.use(express.static(UPLOAD_FILE_DEST))
 
 app.use(session({
   name: 'mt_admin_sid',
@@ -61,6 +62,15 @@ app.use('/', router)
 app.use((err, req, res, next) => {
   console.log('全局异常捕获')
   console.log(err)
+  // multer抛出的异常
+  if (err && err.name === 'MulterError') {
+    const { code, field } = err
+    if (code === 'LIMIT_FILE_SIZE') {
+      res.json(resultVoUtil.error(resultEnum.FILE_TOO_LARGE.code,
+        field + resultEnum.FILE_TOO_LARGE.msg))
+    }
+    return
+  }
   if (err && err.name === 'UnauthorizedError') {
     const { status = 401, message } = err
     const result = resultVoUtil.error(status, 'Token验证失败', message)

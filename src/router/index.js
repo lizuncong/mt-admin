@@ -2,6 +2,7 @@ import express from 'express'
 import boom from 'boom'
 import userRouter from './user'
 import productRouter from './product'
+import commonRouter from './common'
 
 // 注册路由
 const router = express.Router()
@@ -12,6 +13,7 @@ router.get('/', function (req, res) {
 
 router.use('/user', userRouter)
 router.use('/product', productRouter)
+router.use('/common', commonRouter)
 
 /*
 * 集中处理404请求的中间件
