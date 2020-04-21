@@ -30,3 +30,30 @@ export const createUser = async ({ userName, password, phone, gender, avatar }) 
     avatar
   })
 }
+
+/*
+* 修改用户信息
+* @param {Object} param0 修改的内容 { newUserName, newPassword, newGender, newAvatar }
+* @param {string} param1 查询条件 { phone, password }
+* */
+export const updateUser = async ({ newUserName, newPassword, newGender, newAvatar }, { phone, password }) => {
+  const updateData = {}
+  if (newUserName !== undefined) {
+    updateData.userName = newUserName
+  }
+  if (newPassword !== undefined) {
+    updateData.password = newPassword
+  }
+  if (newGender !== undefined) {
+    updateData.gender = newGender
+  }
+  if (newAvatar !== undefined) {
+    updateData.avatar = newAvatar
+  }
+  const whereOpts = { phone }
+  if (password) {
+    whereOpts.password = password
+  }
+
+  return await User.update(updateData, { where: whereOpts })
+}

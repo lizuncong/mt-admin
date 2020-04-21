@@ -4,7 +4,7 @@ import resultVoUtil from '../utils/resultVoUtil'
 import UserVo from '../vo/user'
 import { resultEnum } from '../enums'
 import { md5 } from '../utils/tools'
-import { getUserInfo, createUser } from '../service/user'
+import { getUserInfo, createUser, updateUser } from '../service/user'
 
 export const login = async (req, res, next) => {
   const { phone, password } = req.body
@@ -58,4 +58,28 @@ export const isPhoneExist = async (req, res, next) => {
     data = resultVoUtil.error(resultEnum.USER_NOT_EXIST.code, resultEnum.USER_NOT_EXIST.msg)
   }
   res.json(data)
+}
+
+export const editUserInfo = async (req, res, next) => {
+  const { userName, gender, avatar, password } = req.body
+  const { phone } = req.session.userInfo
+  const result = await updateUser({
+    newUserName: userName, newPassword: password ? md5(password) : undefined, newGender: gender, newAvatar: avatar
+  }, { phone })
+  if (result && result.length) {
+    const newData = {}
+    if (userName) {
+      newData.userName = userName
+    }
+    if (gender) {
+      newData.gender = gender
+    }
+    if (avatar) {
+      newData.avatar = avatar
+    }
+    // 更新session的数据
+    Object.assign(req.session.userInfo, newData)
+    return res.json(resultVoUtil.success(null, '修改成功'))
+  }
+  res.json(resultVoUtil.error(-1, '修改用户信息失败'))
 }
