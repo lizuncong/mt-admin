@@ -64,9 +64,9 @@ export const editUserInfo = async (req, res, next) => {
   const { userName, gender, avatar, password } = req.body
   const { phone } = req.session.userInfo
   const result = await updateUser({
-    newUserName: userName, newPassword: password ? md5(password) : undefined, newGender: gender, newAvatar: avatar
+    newUserName: userName, newPassword: password, newGender: gender, newAvatar: avatar
   }, { phone })
-  if (result && result.length) {
+  if (result && result[0]) {
     const newData = {}
     if (userName) {
       newData.userName = userName
@@ -81,5 +81,23 @@ export const editUserInfo = async (req, res, next) => {
     Object.assign(req.session.userInfo, newData)
     return res.json(resultVoUtil.success(null, '修改成功'))
   }
-  res.json(resultVoUtil.error(-1, '修改用户信息失败'))
+  const { code, msg } = resultEnum.EDIT_USER_INFO_FAIL
+  res.json(resultVoUtil.error(code, msg))
+}
+
+export const editPassword = async (req, res, next) => {
+  const { password, newPassword } = req.body
+  const { phone } = req.session.userInfo
+  if (password === newPassword) {
+    const { code, msg } = resultEnum.PASSWORD_DIFF
+    return res.json(resultVoUtil.error(code, msg))
+  }
+  const result = await updateUser({
+    newPassword: newPassword
+  }, { phone, password: md5(password) })
+  if (result && result[0]) {
+    return res.json(resultVoUtil.success(null, '修改密码成功'))
+  }
+  const { code, msg } = resultEnum.EDIT_PASSWORD_FAIL
+  res.json(resultVoUtil.error(code, msg))
 }

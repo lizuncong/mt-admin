@@ -21,11 +21,23 @@ export default {
     msg: '用户名或密码不正确'
   },
   USER_NOT_LOGIN: {
-    code: 1006,
+    code: 10006,
     msg: '用户未登录'
   },
   FILE_TOO_LARGE: {
-    code: 1007,
+    code: 10007,
     msg: '文件体积超过限制'
+  },
+  EDIT_USER_INFO_FAIL: {
+    code: 10008,
+    msg: '修改用户信息失败'
+  },
+  PASSWORD_DIFF: {
+    code: 10009,
+    msg: '新密码不能和旧密码相同'
+  },
+  EDIT_PASSWORD_FAIL: {
+    code: 10010,
+    msg: '修改密码失败'
   }
 }
