@@ -1,5 +1,6 @@
 import xss from 'xss'
 import { createProduct, findAllProducts } from '../service/product'
+import { getProductCacheList } from '../redis/products'
 import resultVoUtil from '../utils/resultVoUtil'
 import resultEnum from '../enums/resultEnum'
 
@@ -32,5 +33,12 @@ export const create = async (req, res, next) => {
 export const getProductList = async (req, res, next) => {
   const { pageNo, pageSize, userId } = req.body
   const result = await findAllProducts({ pageNo, pageSize, userId })
+  res.json(resultVoUtil.success(result))
+}
+
+// 利用redis缓存存储高频访问数据的demo
+export const getProductListFromRedis = async (req, res, next) => {
+  const { pageNo, pageSize } = req.body
+  const result = await getProductCacheList(pageNo, pageSize)
   res.json(resultVoUtil.success(result))
 }
