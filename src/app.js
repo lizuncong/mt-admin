@@ -4,6 +4,7 @@ import logger from 'morgan'
 import session from 'express-session'
 import ConnectRedis from 'connect-redis'
 import * as rfs from 'rotating-file-stream'
+import boom from 'boom'
 // import cors from 'cors'
 import models from './sequelize/models'
 import config from './config'
@@ -14,7 +15,7 @@ import LoginCheck from './middleware/loginCheck'
 import { generateLogFileName } from './utils/log'
 import constants from './utils/constant'
 import { resultEnum } from './enums'
-const { LOG_INTERVAL, UPLOAD_FILE_DEST } = constants
+const { LOG_INTERVAL, UPLOAD_FILE_DEST, ROUTE_PREFIX } = constants
 
 const app = express()
 
@@ -57,7 +58,15 @@ app.use(session({
 // 登录验证，如果有接口不需要登录验证，则可以在白名单中配置
 app.use(LoginCheck)
 
-app.use('/', router)
+app.use(ROUTE_PREFIX, router)
+
+/*
+* 如果路由没有匹配到 ROUTE_PREFIX: /api/*
+* 则抛出接口不存在异常
+* */
+app.use((req, res, next) => {
+  next(boom.notFound('接口不存在'))
+})
 
 app.use((err, req, res, next) => {
   console.log('全局异常捕获')

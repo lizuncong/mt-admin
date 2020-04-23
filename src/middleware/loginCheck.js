@@ -1,19 +1,22 @@
 import resultVoUtil from '../utils/resultVoUtil'
 import { resultEnum } from '../enums'
+import constants from '../utils/constant'
+
+const { ROUTE_PREFIX } = constants
 /*
 * 登录验证中间件
 * 在白名单中的接口不需要验证
 * */
 
 const whiteList = [
-  '/',
-  '/user/login',
-  '/user/register',
-  '/user/isPhoneExist'
+  '',
+  'user/login',
+  'user/register',
+  'user/isPhoneExist'
 ]
 const loginCheck = (req, res, next) => {
   // 白名单中的接口不需要登录验证
-  if (whiteList.find(i => i === req.path)) {
+  if (whiteList.findIndex(i => (ROUTE_PREFIX + i) === req.path) > -1) {
     next()
     return
   }
