@@ -38,6 +38,8 @@ export const getInfo = async (req, res, next) => {
 }
 export const register = async (req, res, next) => {
   const { userName, password, phone, gender, avatar } = req.body
+  console.log(req.files)
+  console.log(req.body)
   const findUser = await getUserInfo(phone)
   if (findUser) {
     // 用户已存在，不能重复注册

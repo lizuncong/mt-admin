@@ -24,11 +24,11 @@ const schema = {
     gender: {
       type: 'string',
       pattern: '^[123]$'
-    },
-    avatar: {
-      type: 'string',
-      maxLength: 255
     }
+    // avatar: {
+    //   type: 'string',
+    //   maxLength: 255
+    // }
   }
   // required: ['userName', 'password', 'phone', 'gender']
 }
