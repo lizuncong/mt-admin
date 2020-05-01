@@ -4,7 +4,7 @@ const success = (data, msg) => {
   return new ResultVo({
     code: 0,
     msg: msg || 'success',
-    data
+    data: data || 'success'
   })
 }
 
