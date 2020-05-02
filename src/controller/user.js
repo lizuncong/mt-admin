@@ -37,9 +37,12 @@ export const getInfo = async (req, res, next) => {
   res.json(resultVoUtil.success(userInfo))
 }
 export const register = async (req, res, next) => {
-  const { userName, password, phone, gender, avatar } = req.body
-  console.log(req.files)
-  console.log(req.body)
+  const { userName, password, phone, gender } = req.body
+  const avatarFile = req.files ? req.files[0] : ''
+  let avatar = ''
+  if (avatarFile) {
+    avatar = `/${avatarFile.filename}`
+  }
   const findUser = await getUserInfo(phone)
   if (findUser) {
     // 用户已存在，不能重复注册
