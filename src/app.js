@@ -38,7 +38,6 @@ if (!__DEV__) {
   }))
 }
 
-console.log('Upladod..', UPLOAD_FILE_DEST)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/api', express.static(path.resolve(__dirname, 'public')))
