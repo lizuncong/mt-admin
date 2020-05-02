@@ -38,10 +38,11 @@ if (!__DEV__) {
   }))
 }
 
+console.log('Upladod..', UPLOAD_FILE_DEST)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(express.static(path.resolve(__dirname, 'public')))
-app.use(express.static(UPLOAD_FILE_DEST))
+app.use('/api', express.static(path.resolve(__dirname, 'public')))
+app.use('/api', express.static(UPLOAD_FILE_DEST))
 
 app.use(session({
   name: 'mt_admin_sid',
