@@ -43,5 +43,9 @@ export default {
   CREATE_PRODUCT_ERROR: {
     code: 10011,
     msg: '创建商品失败'
+  },
+  CREATE_CATEGORY_ERROR: {
+    code: 10012,
+    msg: '创建商品分类失败'
   }
 }

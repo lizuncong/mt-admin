@@ -2,6 +2,7 @@ import express from 'express'
 import boom from 'boom'
 import userRouter from './user'
 import productRouter from './product'
+import categoryRouter from './category'
 import commonRouter from './common'
 
 // 注册路由
@@ -13,6 +14,7 @@ router.get('/', function (req, res) {
 
 router.use('/user', userRouter)
 router.use('/product', productRouter)
+router.use('/category', categoryRouter)
 router.use('/common', commonRouter)
 
 /*
