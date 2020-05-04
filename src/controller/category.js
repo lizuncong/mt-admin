@@ -1,4 +1,4 @@
-import { createCategory, findAllCategory, update } from '../service/category'
+import { createCategory, findAllCategory, update, destroy } from '../service/category'
 import resultVoUtil from '../utils/resultVoUtil'
 import CategoryVo from '../vo/category'
 import resultEnum from '../enums/resultEnum'
@@ -46,4 +46,11 @@ export const getList = async (req, res, next) => {
   const result = await findAllCategory({ pageNo, pageSize, userId })
   result.rows = result.rows ? result.rows.map(item => new CategoryVo(item)) : []
   res.json(resultVoUtil.success(result))
+}
+
+export const deleteCategory = async (req, res, next) => {
+  const { categoryId } = req.body
+  const result = await destroy({ categoryId })
+  console.log('result...', result)
+  res.json(resultVoUtil.success(null, '删除成功'))
 }

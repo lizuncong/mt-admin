@@ -39,3 +39,11 @@ export const update = async ({ newName, newCode, categoryId }) => {
   const whereOpts = { id: categoryId }
   return await Category.update(updateData, { where: whereOpts })
 }
+
+export const destroy = async ({ categoryId }) => {
+  return await Category.destroy({
+    where: {
+      id: categoryId
+    }
+  })
+}
