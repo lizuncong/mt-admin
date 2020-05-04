@@ -1,3 +1,4 @@
+import xss from 'xss'
 import { createCategory, findAllCategory, update, destroy } from '../service/category'
 import resultVoUtil from '../utils/resultVoUtil'
 import CategoryVo from '../vo/category'
@@ -8,6 +9,7 @@ export const create = async (req, res, next) => {
   const { id: userId } = req.session.userInfo
 
   try {
+    // const xssName = xss(name)
     const category = await createCategory({
       name,
       code,
