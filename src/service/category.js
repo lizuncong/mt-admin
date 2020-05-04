@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 import { Category, User } from '../sequelize/models'
 
 export const createCategory = async ({ name, code, userId }) => {
@@ -6,10 +7,16 @@ export const createCategory = async ({ name, code, userId }) => {
   })
 }
 
-export const findAllCategory = async ({ pageNo, pageSize, userId }) => {
+export const findAllCategory = async ({ pageNo, pageSize, userId, categoryName }) => {
   const whereOpts = {}
   if (userId) {
     whereOpts.id = userId
+  }
+  const catWhereOpts = {}
+  if (categoryName) {
+    catWhereOpts.name = {
+      [Op.substring]: categoryName // LIKE '%hat%'
+    }
   }
 
   return await Category.findAndCountAll({
@@ -18,6 +25,7 @@ export const findAllCategory = async ({ pageNo, pageSize, userId }) => {
     order: [
       ['id', 'desc']
     ],
+    where: catWhereOpts,
     include: [
       {
         model: User,

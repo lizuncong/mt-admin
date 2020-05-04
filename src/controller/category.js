@@ -40,10 +40,10 @@ export const updateCategory = async (req, res, next) => {
 
 // 分页获取商品分类列表
 export const getList = async (req, res, next) => {
-  const { pageNo, pageSize } = req.body
+  const { pageNo, pageSize, categoryName } = req.body
   const { id: userId } = req.session.userInfo
 
-  const result = await findAllCategory({ pageNo, pageSize, userId })
+  const result = await findAllCategory({ pageNo, pageSize, userId, categoryName })
   result.rows = result.rows ? result.rows.map(item => new CategoryVo(item)) : []
   res.json(resultVoUtil.success(result))
 }
