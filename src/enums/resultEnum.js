@@ -47,5 +47,9 @@ export default {
   CREATE_CATEGORY_ERROR: {
     code: 10012,
     msg: '创建商品分类失败'
+  },
+  EDIT_CATEGORY_INFO_FAIL: {
+    code: 10013,
+    msg: '更新商品分类信息失败'
   }
 }

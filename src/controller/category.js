@@ -1,6 +1,6 @@
-import xss from 'xss'
-import { createCategory, findAllCategory } from '../service/category'
+import { createCategory, findAllCategory, update } from '../service/category'
 import resultVoUtil from '../utils/resultVoUtil'
+import CategoryVo from '../vo/category'
 import resultEnum from '../enums/resultEnum'
 
 export const create = async (req, res, next) => {
@@ -26,11 +26,24 @@ export const create = async (req, res, next) => {
   }
 }
 
+export const updateCategory = async (req, res, next) => {
+  const { name, code: categoryCode, categoryId } = req.body
+  const result = await update({
+    newName: name, newCode: categoryCode, categoryId
+  })
+  if (result && result.length) {
+    return res.json(resultVoUtil.success(null, '修改成功'))
+  }
+  const { code, msg } = resultEnum.EDIT_CATEGORY_INFO_FAIL
+  res.json(resultVoUtil.error(code, msg))
+}
+
 // 分页获取商品分类列表
 export const getList = async (req, res, next) => {
   const { pageNo, pageSize } = req.body
   const { id: userId } = req.session.userInfo
 
   const result = await findAllCategory({ pageNo, pageSize, userId })
+  result.rows = result.rows ? result.rows.map(item => new CategoryVo(item)) : []
   res.json(resultVoUtil.success(result))
 }
