@@ -47,6 +47,7 @@ export const getList = async (req, res, next) => {
 
   const result = await findAllCategory({ pageNo, pageSize, userId, categoryName })
   result.rows = result.rows ? result.rows.map(item => new CategoryVo(item)) : []
+  // res.set('X-XSS-Protection', 0)
   res.json(resultVoUtil.success(result))
 }
 
