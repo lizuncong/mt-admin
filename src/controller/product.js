@@ -5,7 +5,7 @@ import resultVoUtil from '../utils/resultVoUtil'
 import resultEnum from '../enums/resultEnum'
 
 export const create = async (req, res, next) => {
-  const { name, price, image, description } = req.body
+  const { name, price, image, description, categoryId } = req.body
   const { id: userId } = req.session.userInfo
 
   try {
@@ -14,7 +14,8 @@ export const create = async (req, res, next) => {
       price,
       image,
       description: xss(description),
-      userId
+      userId,
+      categoryId
     })
     if (product) {
       res.json(resultVoUtil.success(null, '创建成功'))

@@ -1,8 +1,8 @@
 import { Product, User } from '../sequelize/models'
 
-export const createProduct = async ({ name, price, image, description, userId }) => {
+export const createProduct = async ({ name, price, image, description, userId, categoryId }) => {
   return await Product.create({
-    name, price, image, description, userId
+    name, price, image, description, userId, categoryId
   })
 }
 
