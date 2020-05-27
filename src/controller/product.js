@@ -5,9 +5,9 @@ import resultVoUtil from '../utils/resultVoUtil'
 import resultEnum from '../enums/resultEnum'
 
 export const create = async (req, res, next) => {
-  const { name, price, image, description, categoryId } = req.body
+  const { name, price, description, categoryId } = req.body
   const { id: userId } = req.session.userInfo
-
+  const image = req.files ? req.files.map(item => `/${item.filename}`).join(';') : ''
   try {
     const product = await createProduct({
       name,
