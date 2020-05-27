@@ -2,6 +2,7 @@ import xss from 'xss'
 import { createProduct, findAllProducts } from '../service/product'
 import { getProductCacheList } from '../redis/products'
 import resultVoUtil from '../utils/resultVoUtil'
+import ProductVO from '../vo/product'
 import resultEnum from '../enums/resultEnum'
 
 export const create = async (req, res, next) => {
@@ -34,6 +35,7 @@ export const create = async (req, res, next) => {
 export const getProductList = async (req, res, next) => {
   const { pageNo, pageSize, userId } = req.body
   const result = await findAllProducts({ pageNo, pageSize, userId })
+  result.rows = result.rows ? result.rows.map(row => new ProductVO(row)) : []
   res.json(resultVoUtil.success(result))
 }
 

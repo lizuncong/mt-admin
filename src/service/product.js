@@ -1,4 +1,4 @@
-import { Product, User } from '../sequelize/models'
+import { Product, User, Category } from '../sequelize/models'
 
 export const createProduct = async ({ name, price, image, description, userId, categoryId }) => {
   return await Product.create({
@@ -23,6 +23,10 @@ export const findAllProducts = async ({ pageNo, pageSize, userId }) => {
         model: User,
         attributes: ['userName', 'phone'],
         where: whereOpts
+      },
+      {
+        model: Category,
+        attributes: ['name', 'code']
       }
     ]
   })
