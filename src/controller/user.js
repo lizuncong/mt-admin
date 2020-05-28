@@ -34,7 +34,7 @@ export const logout = async (req, res, next) => {
 
 export const getInfo = async (req, res, next) => {
   const userInfo = req.session.userInfo
-  res.json(resultVoUtil.success(userInfo))
+  res.json(resultVoUtil.success(new UserVo(userInfo)))
 }
 export const register = async (req, res, next) => {
   const { userName, password, phone, gender } = req.body
