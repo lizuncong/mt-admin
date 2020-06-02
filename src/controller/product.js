@@ -1,5 +1,5 @@
 import xss from 'xss'
-import { createProduct, findAllProducts } from '../service/product'
+import { createProduct, findAllProducts, destroy } from '../service/product'
 import { getProductCacheList } from '../redis/products'
 import resultVoUtil from '../utils/resultVoUtil'
 import ProductVO from '../vo/product'
@@ -29,6 +29,13 @@ export const create = async (req, res, next) => {
     const { code, msg } = resultEnum.CREATE_PRODUCT_ERROR
     res.json(resultVoUtil.error(code, msg))
   }
+}
+
+// 删除商品
+export const deleteProduct = async (req, res, next) => {
+  const { productId } = req.body
+  const result = await destroy({ productId })
+  res.json(resultVoUtil.success(null, '删除成功！'))
 }
 
 // 分页获取商品列表

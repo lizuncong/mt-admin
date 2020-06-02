@@ -31,3 +31,11 @@ export const findAllProducts = async ({ pageNo, pageSize, userId }) => {
     ]
   })
 }
+
+export const destroy = async ({ productId }) => {
+  return await Product.destroy({
+    where: {
+      id: productId
+    }
+  })
+}
