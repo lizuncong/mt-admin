@@ -51,5 +51,9 @@ export default {
   EDIT_CATEGORY_INFO_FAIL: {
     code: 10013,
     msg: '更新商品分类信息失败'
+  },
+  EDIT_PRODUCT_INFO_FAIL: {
+    code: 10014,
+    msg: '更新商品信息失败'
   }
 }

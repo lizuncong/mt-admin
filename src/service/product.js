@@ -39,3 +39,16 @@ export const destroy = async ({ productId }) => {
     }
   })
 }
+
+export const update = async ({ productId, ...arg }) => {
+  // name, price, image, status, description
+  const updateData = {}
+  Object.keys(arg).forEach(key => {
+    updateData[key] = arg[key]
+  })
+  return await Product.update(updateData, {
+    where: {
+      id: productId
+    }
+  })
+}

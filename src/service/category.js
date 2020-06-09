@@ -1,5 +1,5 @@
-const { Op } = require("sequelize");
 import { Category, User } from '../sequelize/models'
+const { Op } = require('sequelize')
 
 export const createCategory = async ({ name, code, userId }) => {
   return await Category.create({

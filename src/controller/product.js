@@ -1,5 +1,5 @@
 import xss from 'xss'
-import { createProduct, findAllProducts, destroy } from '../service/product'
+import { createProduct, findAllProducts, destroy, update } from '../service/product'
 import { getProductCacheList } from '../redis/products'
 import resultVoUtil from '../utils/resultVoUtil'
 import ProductVO from '../vo/product'
@@ -29,6 +29,22 @@ export const create = async (req, res, next) => {
     const { code, msg } = resultEnum.CREATE_PRODUCT_ERROR
     res.json(resultVoUtil.error(code, msg))
   }
+}
+
+// 更新商品
+export const updateProduct = async (req, res, next) => {
+  const { productId, image, ...arg } = req.body
+  const imgFiles = req.files ? req.files.map(item => `/${item.filename}`) : []
+  const result = await update({
+    productId,
+    image: image.concat(imgFiles).join(';'),
+    ...arg
+  })
+  if (result && result.length) {
+    return res.json(resultVoUtil.success(null, '修改成功'))
+  }
+  const { code, msg } = resultEnum.EDIT_PRODUCT_INFO_FAIL
+  res.json(resultVoUtil.error(code, msg))
 }
 
 // 删除商品
