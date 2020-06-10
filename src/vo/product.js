@@ -17,5 +17,6 @@ export default class ProductVo {
     this.description = opts.description
     this.categoryName = category.name
     this.categoryCode = category.code
+    this.categoryId = category.id
   }
 }

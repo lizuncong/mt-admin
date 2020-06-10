@@ -33,11 +33,12 @@ export const create = async (req, res, next) => {
 
 // 更新商品
 export const updateProduct = async (req, res, next) => {
-  const { productId, image, ...arg } = req.body
+  const { productId, imgUrl, ...arg } = req.body
   const imgFiles = req.files ? req.files.map(item => `/${item.filename}`) : []
+  const urls = imgUrl ? JSON.parse(imgUrl) : []
   const result = await update({
     productId,
-    image: image.concat(imgFiles).join(';'),
+    image: urls.concat(imgFiles).join(';'),
     ...arg
   })
   if (result && result.length) {
@@ -56,8 +57,8 @@ export const deleteProduct = async (req, res, next) => {
 
 // 分页获取商品列表
 export const getProductList = async (req, res, next) => {
-  const { pageNo, pageSize, userId } = req.body
-  const result = await findAllProducts({ pageNo, pageSize, userId })
+  const { pageNo, pageSize, userId, productName } = req.body
+  const result = await findAllProducts({ pageNo, pageSize, userId, productName })
   result.rows = result.rows ? result.rows.map(row => new ProductVO(row)) : []
   res.json(resultVoUtil.success(result))
 }

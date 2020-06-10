@@ -1,4 +1,5 @@
 import { Product, User, Category } from '../sequelize/models'
+const { Op } = require('sequelize')
 
 export const createProduct = async ({ name, price, image, description, userId, categoryId }) => {
   return await Product.create({
@@ -6,18 +7,24 @@ export const createProduct = async ({ name, price, image, description, userId, c
   })
 }
 
-export const findAllProducts = async ({ pageNo, pageSize, userId }) => {
+export const findAllProducts = async ({ pageNo, pageSize, userId, productName }) => {
   const whereOpts = {}
   if (userId) {
     whereOpts.id = userId
   }
-
+  const catWhereOpts = {}
+  if (productName) {
+    catWhereOpts.name = {
+      [Op.substring]: productName // LIKE '%hat%'
+    }
+  }
   return await Product.findAndCountAll({
     limit: Number(pageSize),
     offset: pageNo * pageSize,
     order: [
       ['id', 'desc']
     ],
+    where: catWhereOpts,
     include: [
       {
         model: User,
@@ -26,7 +33,7 @@ export const findAllProducts = async ({ pageNo, pageSize, userId }) => {
       },
       {
         model: Category,
-        attributes: ['name', 'code']
+        attributes: ['name', 'code', 'id']
       }
     ]
   })
