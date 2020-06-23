@@ -36,11 +36,16 @@ export const updateProduct = async (req, res, next) => {
   const { productId, imgUrl, ...arg } = req.body
   const imgFiles = req.files ? req.files.map(item => `/${item.filename}`) : []
   const urls = imgUrl ? JSON.parse(imgUrl) : []
-  const result = await update({
+  const updateParam = {
     productId,
-    image: urls.concat(imgFiles).join(';'),
     ...arg
-  })
+  }
+  console.log('imgUrl..', imgUrl)
+  console.log('req.files...', req.files)
+  if (imgUrl || req.files.length) {
+    updateParam.image = urls.concat(imgFiles).join(';')
+  }
+  const result = await update(updateParam)
   if (result && result.length) {
     return res.json(resultVoUtil.success(null, '修改成功'))
   }

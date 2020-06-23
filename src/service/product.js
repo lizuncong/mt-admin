@@ -22,7 +22,7 @@ export const findAllProducts = async ({ pageNo, pageSize, userId, productName })
     limit: Number(pageSize),
     offset: pageNo * pageSize,
     order: [
-      ['id', 'desc']
+      ['categoryId', 'desc']
     ],
     where: catWhereOpts,
     include: [
